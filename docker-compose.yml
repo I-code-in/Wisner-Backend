@@ -1,0 +1,34 @@
+services:
+  backend:
+    build:
+      context: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+    container_name: wisner
+    ports:
+      - "${BACKEND_PORT}:8000"
+    volumes:
+      - .:/app
+    command: >
+      sh -c "poetry run alembic upgrade head &&
+             poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  db:
+    image: postgres:14
+    container_name: wisner_db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASS}
+      - TZ=America/Asuncion
+    ports:
+      - "${DATABASE_PORT}:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
