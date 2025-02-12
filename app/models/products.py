@@ -2,6 +2,7 @@ from sqlmodel import Field, SQLModel, Relationship
 from typing import Optional
 from app.models.prepared_by import PreparedBy
 
+
 class ProductBase(SQLModel):
     name: str
     value: int

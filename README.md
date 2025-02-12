@@ -17,7 +17,13 @@ python -m venv venv
 ```console
 poetry install
 ```
+## Manejo de BD con DBEAVER
+
 ## nueva migracion
 '''console
 docker-compose exec backend poetry run alembic revision -m "001_create_products"
+'''
+
+'''console
+docker-compose exec backend poetry run alembic down -1
 '''

@@ -22,3 +22,11 @@ class Products(ProductsBase):
 
     class Config:
         from_attributes = True
+
+
+class ProductsPaginate(BaseModel):
+    total: int
+    page: int
+    limit: int
+    totalPage: int
+    items: list[Products]
