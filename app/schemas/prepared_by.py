@@ -3,15 +3,16 @@ from typing import Optional
 
 
 class PreparedByBase(BaseModel):
-    name: str
-    ruc: str
-    address: str
-    city: str
-    country: str
-    phone: str
-    email: str
-    re: str
-    rspa: str
+    name: Optional[str] = None
+    ruc: Optional[str] = None
+    address: Optional[str] = None
+    city: Optional[str] = None
+    country: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    re: Optional[str] = None
+    rspa: Optional[str] = None
+    active: Optional[bool] = None
 
 
 class PreparedBy(PreparedByBase):
@@ -19,3 +20,7 @@ class PreparedBy(PreparedByBase):
 
     class Config:
         from_attributes = True
+
+
+class PreparedByCreate(PreparedByBase):
+    pass
