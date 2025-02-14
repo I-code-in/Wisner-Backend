@@ -8,6 +8,7 @@ class ProductBase(SQLModel):
     value: int
     description: str
     warning: str
+    image: str
 
 
 class Product(ProductBase, table=True):
