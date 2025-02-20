@@ -4,21 +4,33 @@ from app.schemas.prepared_by import PreparedBy
 
 
 class ProductsBase(BaseModel):
-    name: str
-    value: int
-    description: str
-    warning: str
-    active: bool
-    prepared_by_id: int
+    id: Optional[int] = None
+    name: Optional[str] = None
+    value: Optional[int] = None
+    description: Optional[str] = None
+    warning: Optional[str] = None
+    active: Optional[bool] = None
+    prepared_by_id: Optional[int] = None
 
 
 class ProductsCreate(ProductsBase):
     pass
 
+    class Config:
+        from_attributes = True 
+
 
 class Products(ProductsBase):
-    id: int
+    image: Optional[str]
     prepared_by: Optional[PreparedBy]
 
     class Config:
         from_attributes = True
+
+
+class ProductsPaginate(BaseModel):
+    total: int
+    page: int
+    limit: int
+    totalPage: int
+    items: list[Products]
