@@ -1,6 +1,12 @@
 from fastapi import APIRouter
-from app.api import products
-from app.api import banner_images
+from app.api import (
+    products,
+    pagos,
+    coupons,
+    banner_images,
+    newsletter
+)
+
 
 api_router = APIRouter()
 
@@ -11,7 +17,25 @@ api_router.include_router(
 )
 
 api_router.include_router(
+    pagos.router,
+    prefix="/pedidos",
+    tags=["pedidos"]
+)
+
+api_router.include_router(
+    coupons.router,
+    prefix="/coupons",
+    tags=["coupons"]
+)
+
+api_router.include_router(
     banner_images.router,
     prefix="/banner_images",
     tags=["banner_images"]
+)
+
+api_router.include_router(
+    newsletter.router,
+    prefix="/newsletter",
+    tags=["newsletter"]
 )

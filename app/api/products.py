@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.orm import Session
-from app.database.database import SessionLocal
 from app.crud.products import (
     create_product,
     get_products_by_id,
