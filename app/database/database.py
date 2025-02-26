@@ -19,8 +19,9 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Base para declarar las clases de los modelos
 Base = declarative_base()
 
+
 def get_db() -> Session:
-    from app.database.database import SessionLocal  # Move the import inside to avoid circular issues
+    from app.database.database import SessionLocal
     db = SessionLocal()
     try:
         yield db

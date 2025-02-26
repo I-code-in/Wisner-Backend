@@ -19,16 +19,15 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-     op.create_table("banner_image",
-        sa.Column("id", sa.BigInteger(), nullable=False),
-        sa.Column("name", sa.String(), nullable=True),
-        sa.Column("description", sa.String(), nullable=True),
-        sa.Column("dir", sa.String(), nullable=True),
-        sa.Column('active', sa.Boolean(), nullable=True),
-        sa.PrimaryKeyConstraint("id")
-     )
- 
+   op.create_table("banner_image",
+      sa.Column("id", sa.BigInteger(), nullable=False),
+      sa.Column("name", sa.String(), nullable=True),
+      sa.Column("description", sa.String(), nullable=True),
+      sa.Column("dir", sa.String(), nullable=True),
+      sa.Column('active', sa.Boolean(), nullable=True),
+      sa.PrimaryKeyConstraint("id")
+   )
 
 
 def downgrade() -> None:
-    pass
+   op.drop_table("banner_image")
