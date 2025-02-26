@@ -6,7 +6,7 @@ from typing import Optional
 
 class CouponsBase(BaseModel):
     email: Optional[str] = ""
-    discount: Optional[int] = None
+    discount: Optional[int] = 10
     generate: Optional[datetime] = datetime.now()
     expired: Optional[datetime] = datetime.now() + timedelta(days=2)
     used: Optional[bool] = False

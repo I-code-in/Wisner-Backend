@@ -1,19 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.database.database import SessionLocal
 from app.schemas.coupons import CouponsOut, CouponsCreate, CouponsUpdate, CouponsPaginate
 from app.crud.coupons import get_coupons_by_uuid, new_coupons, update_coupons, get_cupons_all
 from typing import Optional
+from app.database.database import get_db
 
 router = APIRouter()
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.get("/{cupon}", response_model=CouponsOut)

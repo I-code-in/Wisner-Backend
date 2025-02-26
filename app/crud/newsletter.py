@@ -2,8 +2,12 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, BackgroundTasks, Response
 from app.models.newsletter import Newsletter
 from app.schemas.newsletter import NewsletterCreate, NewsletterUpdate
+from app.schemas.coupons import CouponsCreate, CouponsOut
 from app.utils.email import send_email
 from jinja2 import Environment, FileSystemLoader
+from app.crud.coupons import new_coupons
+from datetime import datetime, timedelta
+from decouple import config as configEnv
 
 env = Environment(loader=FileSystemLoader("app/templates/emails"))
 
@@ -29,16 +33,24 @@ async def create_newsletter(db: Session, newsletter: NewsletterCreate, backgroun
     elif result and result.active is True:
         raise HTTPException(status_code=404, detail="Email ya forma parte de la newsletter")
     else:
-        result = Newsletter(**newsletter)
+        result = Newsletter(**newsletter.model_dump())
         db.add(result)
     db.commit()
     db.refresh(result)
 
-    template = env.get_template("resuscripcion.html")
-    html_content = template.render()
+    template = env.get_template("suscripcion.html")
+    cupon_create = CouponsCreate(
+        email=result.email,
+        discount=int(configEnv("DISCOUNT_CUPONS", "10")),
+        generate=datetime.now(),
+        expired=datetime.now() + timedelta(days=int(configEnv("DAYS_EXPIRE_CUPONS", "2"))),
+        used=False
+    )
+    cupon: CouponsOut = new_coupons(db, cupon_create)
+    html_content = template.render(cupon=cupon.uuid)
     await send_email(
         [newsletter.email],
-        "Resuscripción a Wisner Newsletter",
+        "Suscripción a Wisner Newsletter",
         html_content,
         background_tasks
     )

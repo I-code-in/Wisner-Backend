@@ -1,7 +1,7 @@
 """004_create_order
 
 Revision ID: 13986dd17c3e
-Revises: f28b96c0f996
+Revises: 5f3e21815bf3
 Create Date: 2025-02-21 11:11:06.856191
 
 """
@@ -15,7 +15,7 @@ from sqlalchemy.dialects.postgresql import UUID
 
 # revision identifiers, used by Alembic.
 revision: str = '13986dd17c3e'
-down_revision: Union[str, None] = 'f28b96c0f996'
+down_revision: Union[str, None] = '5f3e21815bf3'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -111,7 +111,7 @@ def upgrade() -> None:
         'newsletter',
         sa.Column('id', sa.BigInteger, nullable=False),
         sa.Column('email', sa.String, nullable=False),
-        sa.Column('active', sa.DateTime, nullable=False),
+        sa.Column('active', sa.Boolean, nullable=False),
         sa.PrimaryKeyConstraint("id")
     )
 

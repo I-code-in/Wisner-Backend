@@ -1,18 +1,10 @@
 from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
-from app.database.database import SessionLocal
 from app.schemas.orders import OrderIn
 from app.utils.email import send_email
+from app.database.database import get_db
 
 router = APIRouter()
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.get("/solicitar-pedido", response_model=None)
