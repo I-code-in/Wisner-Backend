@@ -20,7 +20,7 @@ def get_products_by_id(db: Session, id: int):
     return db.query(Product).options(joinedload(Product.prepared_by)).filter(Product.id == id).first()
 
 
-async def get_products_all(db: Session, page: int = 0, limit: int = 8):
+async def get_products_all(db: Session, page: int = 1, limit: int = 8):
     query = db.query(Product).filter(Product.active == True)
     total_items = query.count()
     total_pages = (total_items + limit - 1) // limit
