@@ -1,8 +1,5 @@
 .env
 /venv
 __pycache__/
-<<<<<<< HEAD
 banner_images
-=======
 /files
->>>>>>> b68625c68f99f3777290175a8ffe7c609099c196
