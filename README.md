@@ -40,12 +40,12 @@ docker-compose exec backend poetry run alembic revision -m "001_create_products"
 
 ## actualizar manualmente
 '''console
-docker-compose exec backend poetry run alembic update head
+docker-compose exec backend poetry run alembic upgrade head
 '''
 
 ## bajar una version
 '''console
-docker-compose exec backend poetry run alembic down -1
+docker-compose exec backend poetry run alembic downgrade -1
 '''
 
 ## historial de versiones

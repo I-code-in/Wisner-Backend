@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.orm import Session
-from app.database.database import SessionLocal
 from app.crud.products import (
     create_product,
     get_products_by_id,
@@ -16,16 +15,9 @@ from app.crud.products import (
 from app.schemas.products import Products, ProductsCreate, ProductsPaginate
 from app.schemas.ingredients import IngredientsCreate, Ingredients
 from app.schemas.prepared_by import PreparedBy, PreparedByCreate
+from app.database.database import get_db
 
 router = APIRouter()
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/", response_model=Products)

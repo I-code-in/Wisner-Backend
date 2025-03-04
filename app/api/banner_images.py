@@ -5,19 +5,21 @@ from app.crud.banner_images import (
     get_active_banner_images, 
     deactivate_banner_image)
 from app.database.database import get_db
+from typing import Optional
 
 
-router = APIRouter(
-)
+router = APIRouter()
 
-        
-@router.post("/upload/{bannerImage_id}")
+
+@router.post("/upload")
 async def upload_banner_endpoint(
-    bannerImage_id: int, 
-    file: UploadFile, 
+    file: UploadFile,
+    name: Optional[str] = "",
+    description: Optional[str] = "",
     db: Session = Depends(get_db)
 ):
-    return await upload_banner_image(db, file, bannerImage_id)        
+    return await upload_banner_image(db, file, name, description)
+
 
 @router.get("/active")
 def get_active_banners_endpoint(db: Session = Depends(get_db)):
@@ -26,4 +28,4 @@ def get_active_banners_endpoint(db: Session = Depends(get_db)):
 
 @router.put("/{banner_id}/deactivate")
 def deactivate_banner_endpoint(banner_id: int, db: Session = Depends(get_db)):
-    return deactivate_banner_image(db, banner_id)    
+    return deactivate_banner_image(db, banner_id)
