@@ -5,6 +5,7 @@ from app.api import (
     coupons,
     banner_images,
     newsletter,
+    contact,
     user,
     login
 )
@@ -52,4 +53,10 @@ api_router.include_router(
     newsletter.router,
     prefix="/newsletter",
     tags=["newsletter"]
+)
+
+api_router.include_router(
+    contact.router,
+    prefix="/contact",
+    tags=["contact"]
 )
