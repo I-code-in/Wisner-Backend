@@ -4,7 +4,8 @@ from app.api import (
     pagos,
     coupons,
     banner_images,
-    newsletter
+    newsletter,
+    contact
 )
 
 
@@ -38,4 +39,10 @@ api_router.include_router(
     newsletter.router,
     prefix="/newsletter",
     tags=["newsletter"]
+)
+
+api_router.include_router(
+    contact.router,
+    prefix="/contact",
+    tags=["contact"]
 )
