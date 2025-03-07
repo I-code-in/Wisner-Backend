@@ -9,16 +9,15 @@ router = APIRouter()
 env = Environment(loader=FileSystemLoader("app/templates/emails"))
 
 
-@router.post("/contact")
+@router.post("/")
 async def send_contact_email(form_data: ContactBase, background_tasks: BackgroundTasks):
-    
+
     mail_receiver = os.getenv("MAIL_FROM")
     if not mail_receiver:
         return {"error": "MAIL_FROM no está configurado"}
 
     template = env.get_template("contactenos.html")
-    
-  
+
     html_content = template.render(
         nombre=form_data.nombre,
         email=form_data.email,
