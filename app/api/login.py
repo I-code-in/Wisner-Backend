@@ -17,7 +17,7 @@ from app.utils.recovery import send_reset_password_email
 
 router = APIRouter()
 
-@router.post("/")
+@router.post("")
 def login_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     session: SessionDep
