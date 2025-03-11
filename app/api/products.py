@@ -19,7 +19,7 @@ from app.schemas.prepared_by import PreparedBy, PreparedByCreate
 router = APIRouter()
 
 
-@router.post("/", response_model=Products)
+@router.post("", response_model=Products)
 def api_create_product(product: ProductsCreate, db: SessionDep, current_user: CurrentSuperUser):
     return create_product(db, product)
 
@@ -29,7 +29,7 @@ def api_edit_product(product_id: int, product: ProductsCreate, db: SessionDep, c
     return update_product(db, product_id, product)
 
 
-@router.get("/", response_model=ProductsPaginate)
+@router.get("", response_model=ProductsPaginate)
 async def api_get_product_all(
     db: SessionDep,
     page: int = 1,
