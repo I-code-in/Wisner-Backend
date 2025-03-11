@@ -8,15 +8,15 @@ from app.api.deps import CurrentSuperUser
 
 router = APIRouter()
 
-@router.post("/", response_model=NewsletterOut)
+@router.post("", response_model=NewsletterOut)
 async def api_create_newslettert(background_tasks: BackgroundTasks, newsletter: NewsletterCreate, db: Session = Depends(get_db)):
     return await create_newsletter(db, newsletter, background_tasks)
 
 
-@router.patch("/", response_model=NewsletterOut)
+@router.patch("", response_model=NewsletterOut)
 def api_update_newsletter(newsletter: NewsletterUpdate, current_user: CurrentSuperUser, db: Session = Depends(get_db)):
     return update_newsletter(db, newsletter)
 
-@router.get("/", response_model=NewsletterOut)
+@router.get("", response_model=NewsletterOut)
 def api_get_newsletter_all(active: bool, db: Session = Depends(get_db)):
     return get_newsletter_all(db, active)
