@@ -4,6 +4,7 @@ from app.schemas.newsletter import NewsletterOut, NewsletterCreate, NewsletterUp
 from app.crud.newsletter import get_newsletter_all, create_newsletter, update_newsletter
 from typing import Optional
 from app.database.database import get_db
+from app.api.deps import CurrentSuperUser
 
 router = APIRouter()
 
@@ -13,7 +14,7 @@ async def api_create_newslettert(background_tasks: BackgroundTasks, newsletter: 
 
 
 @router.patch("/", response_model=NewsletterOut)
-def api_update_newsletter(newsletter: NewsletterUpdate, db: Session = Depends(get_db)):
+def api_update_newsletter(newsletter: NewsletterUpdate, current_user: CurrentSuperUser, db: Session = Depends(get_db)):
     return update_newsletter(db, newsletter)
 
 @router.get("/", response_model=NewsletterOut)

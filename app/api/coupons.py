@@ -4,6 +4,7 @@ from app.schemas.coupons import CouponsOut, CouponsCreate, CouponsUpdate, Coupon
 from app.crud.coupons import get_coupons_by_uuid, new_coupons, update_coupons, get_cupons_all
 from typing import Optional
 from app.database.database import get_db
+from app.api.deps import CurrentSuperUser
 
 router = APIRouter()
 
@@ -14,12 +15,12 @@ def api_get_coupons_by_uuid(cupon: str, email: Optional[str] = "", db: Session =
 
 
 @router.post("", response_model=CouponsOut)
-def api_new_coupons(cupon: CouponsCreate, db: Session = Depends(get_db)):
+def api_new_coupons(cupon: CouponsCreate, current_user: CurrentSuperUser, db: Session = Depends(get_db)):
     return new_coupons(db, cupon)
 
 
 @router.patch("/{cupon}", response_model=CouponsOut)
-def api_edit_coupons(cupon: str, cuponUpdate: CouponsUpdate, db: Session = Depends(get_db)):
+def api_edit_coupons(cupon: str, cuponUpdate: CouponsUpdate, current_user: CurrentSuperUser, db: Session = Depends(get_db)):
     return update_coupons(db, cuponUpdate, cupon)
 
 
