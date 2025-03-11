@@ -14,7 +14,7 @@ from app.database.database import get_db
 
 
 reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl="/login/"
+    tokenUrl="/login"
 )
 
 SessionDep = Annotated[Session, Depends(get_db)]
